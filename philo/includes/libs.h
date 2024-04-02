@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:53:45 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/02 09:55:11 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:11:21 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 
 # include "macros.h"
 # include "structs.h"
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/time.h>
-# include <pthread.h>
+# include <unistd.h>
+
+typedef struct s_training
+{
+	int				i;
+	int				tab[100];
+	pthread_mutex_t	mutex;
+}					t_training;
 
 #endif

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 09:55:17 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/02 12:29:41 by sokaraku         ###   ########.fr       */
+/*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
+/*   Updated: 2024/04/02 12:42:18 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACROS_H
-# define MACROS_H
+#include "philosophers.h"
 
-# define NB_THREAD 10
+void	do_threads(void *(f)(void *), void *arg, void *ret, pthread_t threads[])
+{
+	int			i;
 
-#endif
+	i = -1;
+	while (++i < NB_THREAD)
+		pthread_create(&threads[i], NULL, f, arg);
+	i = -1;
+	while (++i < NB_THREAD)
+		pthread_join(threads[i], &ret);
+}

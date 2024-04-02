@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/02 10:15:07 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:09:30 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,121 @@ void	*test2(void *param)
 
 void	*test3(void *param)
 {
-	long	i;
-	
-	i = 0;
-	(void)*param;
-	printf("%d\n", 10 << 4);
-	while (i < 10 << 4)
-		i++;
+	t_training	*t;
+	int			j;
+
+	t = (t_training *)param;
+	j = 0;
+	while (j++ < 1L << 16)
+	{
+		pthread_mutex_lock(&t->mutex);
+		t->i++;
+		pthread_mutex_unlock(&t->mutex);
+	}
 	return (NULL);
 }
 
+// int	main(void) // race condition test 3
+// {
+// 	pthread_t thread;
+// 	pthread_t thread2;
+// 	t_training utils;
+
+// 	utils.i = 0;
+// 	pthread_mutex_init(&utils.mutex, NULL);
+// 	pthread_create(&thread, NULL, test3, &utils);
+// 	pthread_create(&thread2, NULL, test3, &utils);
+// 	test3(&utils);
+// 	pthread_join(thread, NULL);
+// 	pthread_join(thread2, NULL);
+// 	printf("%d\n", utils.i);
+// 	pthread_mutex_destroy(&utils.mutex);
+// }
+
+void	*test4(void *param)
+{
+	int	*n;
+
+	n = (int *)param;
+	if (*n == 4)
+		(*n) /= 2;
+	else
+		(*n) /= 2;
+	return (n);
+}
+
+void	*test5(void *param)
+{
+	static int	tab[10000];
+	static int	i;
+	int			j;
+	t_training	t;
+
+	t = *(t_training *)param;
+	j = -1;
+	pthread_mutex_lock(&t.mutex);
+	if (i == 0)
+		while (++j < 100)
+			tab[j] = j;
+	printf("[%d]\n", tab[i++]);
+	pthread_mutex_unlock(&t.mutex);
+	return (NULL);
+}
+
+// int	main(void) //test 5
+// {
+// 	pthread_t	threads[NB_THREAD];
+// 	t_training	utils;
+// 	int			i;
+
+// 	utils.i = 0;
+// 	i = 0;
+// 	while (i++ < 100)
+// 		utils.tab[i] = i;
+// 	pthread_mutex_init(&utils.mutex, NULL);
+// 	while (i++ < 10)
+// 		do_threads(test5, &utils, NULL, threads);
+// 	pthread_mutex_destroy(&utils.mutex);
+// }
+
+// void	*test6(void *param)
+// {
+// 	printf("[%d] \n", *(int *)param);
+// 	return (NULL);
+// }
+
+// int	main(void) //test6
+// {
+// 	pthread_t	threads[100];
+// 	int			i;
+// 	int			tab[100];
+
+// 	i = -1;
+// 	while (++i < 100)
+// 		tab[i] = i;
+// 	i = -1;
+// 	while (++i < 100)
+// 		pthread_create(&threads[i], NULL, test6, tab + i);
+// 	i = -1;
+// 	while (++i < 100)
+// 		pthread_join(threads[i], NULL);
+// }
+
 int	main(void)
 {
-	// pthread_t thread;
-	// pthread_t thread2;
-	int *result;
-	int *result2;
+	struct timeval start;
+	struct timeval end;
+	long elapsed_time;
 
-	result = NULL;
-	result2 = NULL;
-	// pthread_create(&thread, NULL, test3, result);
-	// pthread_create(&thread2, NULL, test3, result2);
-	test3(NULL);
-	test3(NULL);
-	// free((void *)&thread);
-	// pthread_join(thread, (void **)&result);
-	// pthread_join(thread2, (void **)&result2);
-	// if (!result)
-	// 	exit(EXIT_FAILURE);
-	// for (int i = 0; i < 10000; i++)
-	// 	printf("[%d]\n", result[i]);
-	// for (int i = 0; i < 10000; i++)
-	// 	printf("[%d]\n", result2[i]);
-	// free(result);
-	// free(result2);
+	gettimeofday(&start, NULL);
+	for (long i = 0; i < 1L << 32; i++)
+		;
+	gettimeofday(&end, NULL);
+	printf("%ld\n", start.tv_sec);
+	printf("%ld\n", end.tv_sec);
+	printf("%ld\n", start.tv_usec);
+	printf("%ld\n", end.tv_usec);
+	elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec
+			- start.tv_usec);
+	printf("Elapsed time: %ld microseconds\n", elapsed_time);
 }
