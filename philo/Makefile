@@ -1,7 +1,8 @@
 NAME				=	philo
 
 FILES				=	test.c \
-						utils.c
+						utils.c \
+						parsing.c
 
 SRC_DIR				=	src
 SRC					=	$(addprefix $(SRC_DIR)/, $(SRC))

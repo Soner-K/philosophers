@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/02 15:09:30 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:46:19 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,21 +138,21 @@ void	*test5(void *param)
 // 		pthread_join(threads[i], NULL);
 // }
 
-int	main(void)
-{
-	struct timeval start;
-	struct timeval end;
-	long elapsed_time;
+// int	main(void)
+// {
+// 	struct timeval start;
+// 	struct timeval end;
+// 	long elapsed_time;
 
-	gettimeofday(&start, NULL);
-	for (long i = 0; i < 1L << 32; i++)
-		;
-	gettimeofday(&end, NULL);
-	printf("%ld\n", start.tv_sec);
-	printf("%ld\n", end.tv_sec);
-	printf("%ld\n", start.tv_usec);
-	printf("%ld\n", end.tv_usec);
-	elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec
-			- start.tv_usec);
-	printf("Elapsed time: %ld microseconds\n", elapsed_time);
-}
+// 	gettimeofday(&start, NULL);
+// 	for (long i = 0; i < 1L << 32; i++)
+// 		;
+// 	gettimeofday(&end, NULL);
+// 	printf("%ld\n", start.tv_sec);
+// 	printf("%ld\n", end.tv_sec);
+// 	printf("%ld\n", start.tv_usec);
+// 	printf("%ld\n", end.tv_usec);
+// 	elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec
+// 			- start.tv_usec);
+// 	printf("Elapsed time: %ld microseconds\n", elapsed_time);
+// }
