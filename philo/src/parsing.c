@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:23:29 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/03 16:08:12 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:38:50 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static char	store_args(int ac, char **argv, t_args *args)
 		args->number_win = ft_atoi(argv[5]);
 		args->optional = 1;
 	}
+	args->dead = 0;
 	return (TRUE);
 }
 

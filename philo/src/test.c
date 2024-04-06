@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/03 19:46:19 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:50:00 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,3 +156,22 @@ void	*test5(void *param)
 // 			- start.tv_usec);
 // 	printf("Elapsed time: %ld microseconds\n", elapsed_time);
 // }
+
+int main(int ac, char **av)
+{
+	t_args	args;
+	t_philo	philos[200];
+	int		i;
+
+	if (ac < 4)
+		return (0);
+	i = 0;
+	check_input(ac, av, &args);
+	init_philo_array(philos, &args);
+	while (i < args.n)
+	{
+		// printf("philos[%d].fork_l = %p\n", i, &philos[i].fork_l);
+		// printf("philos[%d].fork_r = %p\n\n\n", i, &philos[i].fork_r);
+		i++;
+	}
+}
