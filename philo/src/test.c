@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/06 17:50:00 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:08:35 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,21 +157,43 @@ void	*test5(void *param)
 // 	printf("Elapsed time: %ld microseconds\n", elapsed_time);
 // }
 
-int main(int ac, char **av)
-{
-	t_args	args;
-	t_philo	philos[200];
-	int		i;
+// void	mutex_destroy(pthread_mutex_t *forks, int n)
+// {
+// 	int	i;
 
-	if (ac < 4)
-		return (0);
-	i = 0;
-	check_input(ac, av, &args);
-	init_philo_array(philos, &args);
-	while (i < args.n)
-	{
-		// printf("philos[%d].fork_l = %p\n", i, &philos[i].fork_l);
-		// printf("philos[%d].fork_r = %p\n\n\n", i, &philos[i].fork_r);
-		i++;
-	}
+// 	i = 0;
+// 	while (n--)
+// 	{
+// 		pthread_mutex_destroy(&forks[i]);
+// 		i++;
+// 	}
+// }
+
+// int main(int ac, char **av)
+// {
+// 	t_args	args;
+// 	t_philo	philos[200];
+// 	int		i;
+
+// 	if (ac < 4)
+// 		return (0);
+// 	i = 0;
+// 	if (check_input(ac, av, &args) == 0)
+// 		return (0);
+// 	init_philo_array(philos, &args);
+// 	printf("IN MAIN\n");
+// 	while (i < args.n)
+// 	{
+// 		printf("philos[%d].id = %d\n", i, philos[i].id);
+// 		printf("philos[%d].fork_l = %p\n", i, (void *) philos[i].fork_l);
+// 		printf("philos[%d].fork_r = %p\n\n\n", i, (void *) philos[i].fork_r);
+// 		i++;
+// 	}
+// 	// mutex_destroy(args.forks, args.n);
+// 	// free(args.forks);
+// }
+
+int main(void)
+{
+	usleep(1000000);
 }

@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:23:29 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/06 14:38:50 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:17:29 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static char	only_digits(char **argv)
 	}
 	return (TRUE);
 }
+
+//gerer > int max ou < int min ?
 /**
  * @brief Transforms a number written into a string to an int.
  * @param str The number in the form of a string.
