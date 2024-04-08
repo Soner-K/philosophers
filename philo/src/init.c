@@ -6,14 +6,13 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 13:04:42 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:19:50 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 // check what attribute to use for pthread_mutex_init
-
 
 static void	init_mutex(t_args *args, pthread_mutex_t *forks)
 {
