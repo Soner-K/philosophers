@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 14:22:20 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:47:51 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 typedef struct s_philo
 {
+	char			is_eating;
+	long			last_ate;
+	int				meals;
 	short int		id;
 	pthread_t		thread;
 	pthread_mutex_t	*fork_l;
@@ -54,10 +57,9 @@ typedef struct s_args
 	int				time_sleep;
 	int				number_win;
 	long			last_meal;
-	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*eat_lock;
-	pthread_mutex_t	*eat_lock;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	eat_lock;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }					t_args;

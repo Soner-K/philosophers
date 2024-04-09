@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:23:29 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 12:17:29 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:29:58 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	ft_atoi(char *str)
 static char	store_args(int ac, char **argv, t_args *args)
 {
 	args->optional = 0;
+	args->dead = 0;
 	args->n = ft_atoi(argv[1]);
 	args->time_die = ft_atoi(argv[2]);
 	args->time_eat = ft_atoi(argv[3]);

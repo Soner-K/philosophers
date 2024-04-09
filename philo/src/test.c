@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 14:20:34 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:34:03 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int main(int ac, char **av)
 {
 	t_args	args;
 	t_philo	philos[200];
+	pthread_mutex_t	forks[200];
 	int		i;
 
 	if (ac < 4)
@@ -180,8 +181,8 @@ int main(int ac, char **av)
 	i = 0;
 	if (check_input(ac, av, &args) == 0)
 		return (0);
-	init_philo_array(philos, &args);
-	printf("IN MAIN\n");
+	init_philos(philos, &args, forks);
+	// printf("IN MAIN\n");
 	// while (i < args.n)
 	// {
 	// 	printf("philos[%d].id = %d\n", i, philos[i].id);
@@ -189,7 +190,8 @@ int main(int ac, char **av)
 	// 	printf("philos[%d].fork_r = %p\n\n\n", i, (void *) philos[i].fork_r);
 	// 	i++;
 	// }
-	do_routine(philos, &args);
+	// do_routine(philos, &args);
+	create_all_threads(philos, &args);
 	// mutex_destroy(args.forks, args.n);
 	// free(args.forks);
 }

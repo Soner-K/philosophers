@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 14:19:50 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:29:12 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void	init_mutex(t_args *args, pthread_mutex_t *forks)
 	i = -1;
 	while (++i < args->n)
 		pthread_mutex_init(&forks[i], NULL);
-	pthread_mutex_init(args->write_lock, NULL);
-	pthread_mutex_init(args->dead_lock, NULL);
-	pthread_mutex_init(args->eat_lock, NULL);
+	pthread_mutex_init(&args->write_lock, NULL);
+	pthread_mutex_init(&args->dead_lock, NULL);
+	pthread_mutex_init(&args->eat_lock, NULL);
 }
 
 void	init_philos(t_philo *philos, t_args *args, pthread_mutex_t *forks)
@@ -32,14 +32,26 @@ void	init_philos(t_philo *philos, t_args *args, pthread_mutex_t *forks)
 
 	i = -1;
 	init_mutex(args, forks);
-	while (++i < args->n - 1)
+	while (++i < args->n)
 	{
+		if (i < args->n - 1)
+		{
+			philos[i].fork_r = &forks[i];
+			philos[i].fork_l = &forks[i + 1];
+		}
+		else
+		{
+			philos[i].fork_l = philos[0].fork_r;
+			philos[i].fork_r = philos[i - 1].fork_l;
+		}
+		philos[i].is_eating = 0;
+		philos[i].last_ate = 0;
+		philos[i].meals = 0;
 		philos[i].id = i + 1;
-		philos[i].fork_r = &forks[i];
-		philos[i].fork_l = &forks[i + 1];
+		philos[i].args = args;
 	}
-	philos[i].id = i + 1;
-	philos[i].fork_l = philos[0].fork_r;
-	philos[i].fork_r = philos[i - 1].fork_l;
+	// philos[i].id = i + 1;
+	// philos[i].meals = 0;
+	// philos[i].is_eating = 0;
 	args->philos = philos;
 }

@@ -5,6 +5,7 @@ FILES				=	test.c \
 						parsing.c \
 						init.c \
 						life.c \
+						watcher.c \
 
 SRC_DIR				=	src
 SRC					=	$(addprefix $(SRC_DIR)/, $(SRC))
