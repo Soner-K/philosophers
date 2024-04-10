@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/09 15:29:12 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:51:35 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_philos(t_philo *philos, t_args *args, pthread_mutex_t *forks)
 		philos[i].meals = 0;
 		philos[i].id = i + 1;
 		philos[i].args = args;
+		philos[i].started = 0;
 	}
 	// philos[i].id = i + 1;
 	// philos[i].meals = 0;

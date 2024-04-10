@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/09 14:47:51 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:30:34 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 
 # include "libs.h"
 
+typedef struct s_args	t_args;
 typedef struct s_philo
 {
 	char			is_eating;
-	long			last_ate;
+	char			started;
+	long			last_ate; //debut du repas
 	int				meals;
 	short int		id;
 	pthread_t		thread;
 	pthread_mutex_t	*fork_l;
 	pthread_mutex_t	*fork_r;
-	void			*args;
+	t_args			*args;
 }					t_philo;
 
 /**
@@ -51,18 +53,19 @@ typedef struct s_args
 {
 	char			optional;
 	char			dead;
+	char			all_started;
 	int				n;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
 	int				number_win;
 	long			last_meal;
+	long			beginning_time;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	eat_lock;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }					t_args;
-
 
 #endif
