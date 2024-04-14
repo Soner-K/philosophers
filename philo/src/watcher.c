@@ -6,13 +6,13 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:50 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/10 18:47:54 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:10:25 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-char	check_death_for_one(t_philo *philo, t_args *args)
+char	death_one(t_philo *philo, t_args *args)
 {
 	long	current_time;
 	long	delay;
@@ -25,9 +25,6 @@ char	check_death_for_one(t_philo *philo, t_args *args)
 		delay = current_time - args->beginning_time;
 	if (delay >= args->time_die)
 	{
-		// pthread_mutex_lock(&args->write_lock);
-		// printf("delay %ld last_ate %ld id %hd", delay, philo->last_ate, philo->id);
-		// pthread_mutex_unlock(&args->write_lock);
 		pthread_mutex_unlock(&args->eat_lock);
 		return (TRUE);
 	}
@@ -35,20 +32,40 @@ char	check_death_for_one(t_philo *philo, t_args *args)
 	return (FALSE);
 }
 
-char	check_death_for_all(t_philo *philos, t_args *args)
+char	death_all(t_philo *philos, t_args *args)
 {
 	short int	i;
 
 	i = -1;
 	while (++i < args->n)
 	{
-		if (check_death_for_one(&philos[i], args) == TRUE)
+		if (death_one(&philos[i], args) == TRUE)
 		{
 			args->dead = 1;
-			philo_printf("died", &philos[i], args);
+			philo_printf("died", &philos[i], args, 1);
 			return (TRUE);
 		}
 	}
+	return (FALSE);
+}
+
+char	all_meals(t_philo *philos, t_args *args)
+{
+	short int	i;
+	int			finished;
+
+	i = -1;
+	finished = 0;
+	while (++i < args->n)
+	{
+		// printf("meals philos[%d] %d\n", philos[i].id, philos[i].meals);
+		if (philos[i].meals >= args->number_win)
+			finished++;
+		else
+			break ;
+	}
+	if (finished >= args->n)
+		return (args->all_ate = 1, TRUE);
 	return (FALSE);
 }
 
@@ -68,7 +85,15 @@ void	*watch_philos(void *param)
 	}
 	args->beginning_time = get_time();
 	args->all_started = 1;
-	while (check_death_for_all(philos, args) == FALSE)
-		;
+	if (args->optional == 0)
+	{
+		while (!death_all(philos, args))
+			;
+	}
+	else
+	{
+		while (!death_all(philos, args) && !all_meals(philos, args))
+			;
+	}
 	return (NULL);
 }

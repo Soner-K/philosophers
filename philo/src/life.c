@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:03:32 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/10 19:00:32 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:07:05 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,39 @@ void	ft_sleep(t_philo *philo, long time)
 {
 	if (philo->args->dead == 0)
 	{
-		philo_printf("is sleeping", philo, (t_args *)philo->args);
-		ft_usleep(time);
+		philo_printf("is sleeping", philo, (t_args *)philo->args, 0);
+		ft_usleep(time, philo->args);
+		// ft_usleep2(time);
 	}
 }
 
 void	ft_eat(t_philo *philo, long time)
 {
-	if (philo->args->dead == 1)
-		return ;
-	pthread_mutex_lock(philo->fork_l);
-	philo_printf("has taken a fork", philo, philo->args);
 	pthread_mutex_lock(philo->fork_r);
-	philo_printf("has taken a fork", philo, philo->args);
-	pthread_mutex_lock(&philo->args->eat_lock);
+	philo_printf("has taken a fork", philo, philo->args, 0);
+	if (philo->args->n == 1)
+	{
+		ft_usleep(philo->args->time_die, philo->args);
+		return ;
+	}
+	pthread_mutex_lock(philo->fork_l);
+	philo_printf("has taken a fork", philo, philo->args, 0);
 	philo->is_eating = 1;
-	ft_usleep(time);
-	philo_printf("is eating", philo, philo->args);
+	philo_printf("is eating", philo, philo->args, 0);
+	pthread_mutex_lock(&philo->args->eat_lock);
+	philo->last_ate = get_time();
 	philo->meals++;
 	pthread_mutex_unlock(&philo->args->eat_lock);
+	ft_usleep(time, philo->args);
 	pthread_mutex_unlock(philo->fork_l);
 	pthread_mutex_unlock(philo->fork_r);
-	philo->last_ate = get_time();
 	philo->is_eating = 0;
 }
 
 void	ft_think(t_philo *philo)
 {
 	if (philo->args->dead == 0)
-		philo_printf("is thinking", philo, (t_args *)philo->args);
+		philo_printf("is thinking", philo, (t_args *)philo->args, 0);
 }
 
 char	not_dead(t_args *args)
@@ -73,9 +77,11 @@ void	*life(void *param)
 	while (args->all_started == 0)
 		;
 	if (philo->id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(1, args);
 	while (not_dead(args))
 	{
+		if (args->all_ate == 1)
+			break ;
 		ft_eat(philo, args->time_eat);
 		ft_sleep(philo, args->time_sleep);
 		ft_think(philo);
@@ -93,7 +99,6 @@ void	create_all_threads(t_philo *philos, t_args *args)
 	pthread_create(&watcher, NULL, &watch_philos, philos);
 	while (++i < args->n)
 		pthread_create(&philos[i].thread, NULL, life, &philos[i]);
-	// watch_philos(philos);
 	pthread_join(watcher, NULL);
 	i = -1;
 	while (++i < args->n)

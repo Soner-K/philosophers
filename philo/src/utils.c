@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/10 17:18:51 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:01:50 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,18 @@ void	write_error(char *str)
 		write(2, str++, 1);
 }
 
-void	ft_usleep(long mls)
+void	ft_usleep(long mls, t_args *args)
+{
+	long	beginning;
+
+	if (args->dead == 1)
+		return ;
+	beginning = get_time();
+	while ((get_time() - beginning) < mls)
+		usleep(500);
+}
+
+void	ft_usleep2(long mls)
 {
 	long	beginning;
 
@@ -37,16 +48,20 @@ void	ft_usleep(long mls)
 // 	usleep(to_sleep);
 // }
 
-void	philo_printf(char *message, t_philo *philo, t_args *args)
+void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 {
-	long	time;
-
-	// if (args->dead == 1)
-	// 	return ;
+	long		time;
+	static char	i;
+	// (void)message;
+	// (void)philo;
+	if ((args->dead == 1 && force == 0) || (args->all_ate == 1 && i == 1))
+		return ;
+	if (args->all_ate == 1)
+		i = 1;
 	time = get_time();
-	time -= args->beginning_time;;
+	time -= args->beginning_time;
 	pthread_mutex_lock(&args->write_lock);
-	printf("%s[%ld]%s %d %s\n", YELLOW, time, NO_COLOR, philo->id, message);
+ 	printf("%s[%ld]%s %d %s\n", YELLOW, time, NO_COLOR, philo->id, message);
 	pthread_mutex_unlock(&args->write_lock);
 }
 

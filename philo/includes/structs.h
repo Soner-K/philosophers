@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/10 18:30:34 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:54:19 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_args
 	char			optional;
 	char			dead;
 	char			all_started;
+	char			all_ate;
 	int				n;
 	int				time_die;
 	int				time_eat;

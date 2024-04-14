@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:57:18 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/10 13:10:02 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:50:57 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int main(int ac, char **av)
 
 	if (ac < 4)
 		return (0);
-	i = 0;
+	i = -1;
 	if (check_input(ac, av, &args) == 0)
 		return (0);
 	init_philos(philos, &args, forks);
@@ -192,6 +192,8 @@ int main(int ac, char **av)
 	// }
 	// do_routine(philos, &args);
 	create_all_threads(philos, &args);
+	while (++i < args.n)
+		printf("[%d] = %d \n", philos[i].id, philos[i].meals);
 	// mutex_destroy(args.forks, args.n);
 	// free(args.forks);
 }
