@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 19:32:18 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:15:11 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,16 @@ void	write_error(char *str)
 
 void	ft_usleep(long mls, t_args *args)
 {
-	// long	beginning;
-
 	if (!not_dead(args))
 		return ;
-	// // pthread_mutex_lock(&args->dead_lock);
-	// // if (args->dead == 1)
-	// // 	return ;
-	// // pthread_mutex_unlock(&args->dead_lock);
-	// beginning = get_time();
-	// while ((get_time() - beginning) < mls)
-	// 	usleep(500);
 	usleep(mls * 1000);
 }
 
+/**
+ * @brief
+ * @param
+ * @returns
+ */
 void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 {
 	long		time;
@@ -57,6 +53,11 @@ void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 	pthread_mutex_unlock(&args->write_lock);
 }
 
+/**
+ * @brief
+ * @param
+ * @returns
+ */
 long	get_time(void)
 {
 	struct timeval	tv;

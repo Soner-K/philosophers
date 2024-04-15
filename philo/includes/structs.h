@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 13:35:26 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:10:57 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,23 @@
 # include "libs.h"
 
 typedef struct s_args	t_args;
+
+/**
+ * @brief Structure containing all the needed infos for a philosopher.
+ * @param is_eating A boolean taking the value 1 if a philosopher is eating
+ * and 0 otherwise.
+ * @param last_ate The time when a philosopher last ate.
+ * @param meals The number of meals a philosopher ate.
+ * @param id Philosopher's id.
+ * @param thread Philosopher's thread. 
+ * @param fork_l A mutex representing the left fork of a philosopher.
+ * @param fork_r A mutex representing the right fork of a philosopher.
+ * @param args A pointer to the args' structure,
+ */
 typedef struct s_philo
 {
 	char			is_eating;
-	char			started;
-	long			last_ate; //debut du repas
+	long			last_ate;
 	int				meals;
 	short int		id;
 	pthread_t		thread;
@@ -30,10 +42,12 @@ typedef struct s_philo
 }					t_philo;
 
 /**
- * @brief Structure containing the arguments of the program.
+ * @brief Structure containing all the variables needed for the program.
  * @param optional A boolean taking the value 1 if number_win is defined,
  * and 0 otherwise.
  * @param dead A boolean taking the value 1 if a philosopher died.
+ * @param all_ate A boolean taking the value 1 if all the philosophers
+ * ate the required numbr of meals (see number_win).
  * @param n The number of philosophers.
  * @param time_die The maximum time a philosopher can go without eating
  * (in milliseconds).
@@ -43,17 +57,20 @@ typedef struct s_philo
  * philosopher need to eat to stop the simulation. If not defined,
  * the simulation goes on until one philosopher dies.
  * @param last_meal The time at which a philosopher had his last meal.
+ * @param beginning_time The time at which the philosophers started to eat.
  * @param write_lock A mutex for writing to the terminal.
  * @param dead_lock A mutex to announce the death of a philosopher.
  * @param eat_lock A mutex to announce that a philosopher is eating.
- * @param forks A pointer to an array on the stack, containing all the mutexes
- * for the forks.
+ * @param access_lock A mutex for modifying values.
+ * @param forks A pointer to a dynamically allocated array
+ * containing all the mutexes for the forks.
+ * @param philos A pointer to an array on the stack, containing
+ * all the philosophers' structures.
  */
 typedef struct s_args
 {
 	char			optional;
 	char			dead;
-	char			all_started;
 	char			all_ate;
 	int				n;
 	int				time_die;

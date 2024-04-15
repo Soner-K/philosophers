@@ -6,13 +6,18 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:50 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 16:24:08 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:15:24 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-char	death_one(t_philo *philo, t_args *args)
+/**
+ * @brief
+ * @param
+ * @returns
+ */
+static char	death_one(t_philo *philo, t_args *args)
 {
 	long	current_time;
 	long	delay;
@@ -32,7 +37,12 @@ char	death_one(t_philo *philo, t_args *args)
 	return (FALSE);
 }
 
-char	death_all(t_philo *philos, t_args *args)
+/**
+ * @brief
+ * @param
+ * @returns
+ */
+static char	death_all(t_philo *philos, t_args *args)
 {
 	short int	i;
 
@@ -51,7 +61,12 @@ char	death_all(t_philo *philos, t_args *args)
 	return (FALSE);
 }
 
-char	all_meals(t_philo *philos, t_args *args)
+/**
+ * @brief
+ * @param
+ * @returns
+ */
+static char	all_meals(t_philo *philos, t_args *args)
 {
 	short int	i;
 	int			finished;
@@ -70,6 +85,11 @@ char	all_meals(t_philo *philos, t_args *args)
 	return (FALSE);
 }
 
+/**
+ * @brief
+ * @param
+ * @returns
+ */
 void	*watch_philos(void *param)
 {
 	t_philo		*philos;
@@ -79,16 +99,6 @@ void	*watch_philos(void *param)
 	philos = (t_philo *)param;
 	args = (t_args *)philos->args;
 	i = 0;
-	// while (i < args->n)
-	// {
-	// 	pthread_mutex_lock(&args->access_lock);
-	// 	if (philos[i].started == 1)
-	// 		i++;
-	// 	pthread_mutex_unlock(&args->access_lock);
-	// }
-	// pthread_mutex_lock(&args->eat_lock);
-	// args->all_started = 1;
-	// pthread_mutex_unlock(&args->eat_lock);
 	pthread_mutex_lock(&args->access_lock);
 	args->beginning_time = get_time();
 	pthread_mutex_unlock(&args->access_lock);

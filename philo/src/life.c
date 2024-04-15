@@ -6,22 +6,23 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:03:32 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 19:31:27 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:15:36 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_think(t_philo *philo)
-{
-	philo_printf("is thinking", philo, (t_args *)philo->args, 0);
-}
-
-void	ft_sleep(t_philo *philo, long time)
+/**
+ * @brief Sleeps for time miliseconds and then thinks.
+ * @param philo
+ * @param time
+ * @returns
+ */
+static void	sleep_and_think(t_philo *philo, long time)
 {
 	philo_printf("is sleeping", philo, (t_args *)philo->args, 0);
 	ft_usleep(time, philo->args);
-	ft_think(philo);
+	philo_printf("is thinking", philo, (t_args *)philo->args, 0);
 	if (philo->args->n % 2)
 	{
 		ft_usleep(philo->args->time_eat * 2 - philo->args->time_sleep,
@@ -29,7 +30,12 @@ void	ft_sleep(t_philo *philo, long time)
 	}
 }
 
-void	ft_eat_even(t_philo *philo, long time)
+/**
+ * @brief
+ * @param
+ * @returns
+ */
+static void	ft_eat_even(t_philo *philo, long time)
 {
 	pthread_mutex_lock(philo->fork_r);
 	philo_printf("has taken a fork", philo, philo->args, 0);
@@ -52,7 +58,12 @@ void	ft_eat_even(t_philo *philo, long time)
 	pthread_mutex_unlock(philo->fork_l);
 }
 
-void	ft_eat_odd(t_philo *philo, long time)
+/**
+ * @brief
+ * @param
+ * @returns
+ */
+static void	ft_eat_odd(t_philo *philo, long time)
 {
 	pthread_mutex_lock(philo->fork_l);
 	philo_printf("has taken a fork", philo, philo->args, 0);
@@ -71,10 +82,15 @@ void	ft_eat_odd(t_philo *philo, long time)
 	pthread_mutex_unlock(&philo->args->eat_lock);
 	ft_usleep(time, philo->args);
 	philo->is_eating = 0;
-	pthread_mutex_unlock(philo->fork_r);
 	pthread_mutex_unlock(philo->fork_l);
+	pthread_mutex_unlock(philo->fork_r);
 }
 
+/**
+ * @brief
+ * @param
+ * @returns
+ */
 char	not_dead(t_args *args)
 {
 	pthread_mutex_lock(&args->dead_lock);
@@ -87,6 +103,11 @@ char	not_dead(t_args *args)
 	return (TRUE);
 }
 
+/**
+ * @brief
+ * @param
+ * @returns
+ */
 void	*life(void *param)
 {
 	t_philo	*philo;
@@ -104,30 +125,7 @@ void	*life(void *param)
 			ft_eat_even(philo, args->time_eat);
 		else if (philo->id % 2 == 1)
 			ft_eat_odd(philo, args->time_eat);
-		ft_sleep(philo, args->time_sleep);
+		sleep_and_think(philo, args->time_sleep);
 	}
 	return (NULL);
-}
-
-void	create_all_threads(t_philo *philos, t_args *args)
-{
-	pthread_t	watcher;
-	short int	i;
-
-	i = -1;
-	if (pthread_create(&watcher, NULL, &watch_philos, philos) != 0)
-		return (write_error("Error\nIssue with thread creation"));
-	while (++i < args->n)
-	{
-		if (pthread_create(&philos[i].thread, NULL, life, &philos[i]) != 0)
-			return (write_error("Error\nIssue with thread creation"));
-	}
-	if (pthread_join(watcher, NULL) != 0)
-		return (write_error("Error\nIssue with thread joining"));
-	i = -1;
-	while (++i < args->n)
-	{
-		if (pthread_join(philos[i].thread, NULL) != 0)
-			return (write_error("Error\nIssue with thread joining"));
-	}
 }

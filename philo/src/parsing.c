@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:23:29 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 18:03:52 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:59:30 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static char	only_digits(char **argv)
 	{
 		while (argv[i][++j])
 		{
+			if (argv[i][0] == '-')
+				return (2);
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (FALSE);
 		}
@@ -38,7 +40,7 @@ static char	only_digits(char **argv)
 	return (TRUE);
 }
 
-//gerer > int max ou < int min ?
+// gerer > int max ou < int min ?
 /**
  * @brief Transforms a number written into a string to an int.
  * @param str The number in the form of a string.
@@ -95,7 +97,6 @@ static char	store_args(int ac, char **argv, t_args *args)
 		args->optional = 1;
 	}
 	args->dead = 0;
-	args->all_started = 0;
 	args->all_ate = 0;
 	args->beginning_time = 0;
 	return (TRUE);
@@ -108,12 +109,15 @@ static char	store_args(int ac, char **argv, t_args *args)
  * @returns True (1) if the arguments are valid, and FALSE (0) otherwise.
  */
 char	check_input(int ac, char **argv, t_args *args)
-// how many philosophers are acceptable?
 {
-	if (ac < 5)
-		return (write_error("Error\nWrong number of arguments."), FALSE);
-	if (only_digits(argv) == FALSE)
+	char	error_code;
+
+	error_code = only_digits(argv);
+	if (error_code == FALSE)
 		return (write_error("Error\nOnly digits are allowed."), FALSE);
+	else if (error_code == 2)
+		return (write_error("Error\nOnly positive numbers are allowed."),
+			FALSE);
 	if (store_args(ac, argv, args) == FALSE)
 		return (write_error("Error\nIssue with the arguments."), FALSE);
 	if (args->n == 0)

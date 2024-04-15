@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:56:25 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 16:16:47 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:46:46 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ long	get_time(void);
 void	*watch_philos(void *param);
 void	create_all_threads(t_philo *philos, t_args *args);
 char	not_dead(t_args *args);
+void	*life(void *param);
 #endif
