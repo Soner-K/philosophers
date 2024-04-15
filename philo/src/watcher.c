@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:50 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/14 19:10:25 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:24:08 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	death_all(t_philo *philos, t_args *args)
 	{
 		if (death_one(&philos[i], args) == TRUE)
 		{
+			pthread_mutex_lock(&args->dead_lock);
 			args->dead = 1;
+			pthread_mutex_unlock(&args->dead_lock);
 			philo_printf("died", &philos[i], args, 1);
 			return (TRUE);
 		}
@@ -58,11 +60,10 @@ char	all_meals(t_philo *philos, t_args *args)
 	finished = 0;
 	while (++i < args->n)
 	{
-		// printf("meals philos[%d] %d\n", philos[i].id, philos[i].meals);
+		pthread_mutex_lock(&args->eat_lock);
 		if (philos[i].meals >= args->number_win)
 			finished++;
-		else
-			break ;
+		pthread_mutex_unlock(&args->eat_lock);
 	}
 	if (finished >= args->n)
 		return (args->all_ate = 1, TRUE);
@@ -78,13 +79,19 @@ void	*watch_philos(void *param)
 	philos = (t_philo *)param;
 	args = (t_args *)philos->args;
 	i = 0;
-	while (i < args->n)
-	{
-		if (philos[i].started == 1)
-			i++;
-	}
+	// while (i < args->n)
+	// {
+	// 	pthread_mutex_lock(&args->access_lock);
+	// 	if (philos[i].started == 1)
+	// 		i++;
+	// 	pthread_mutex_unlock(&args->access_lock);
+	// }
+	// pthread_mutex_lock(&args->eat_lock);
+	// args->all_started = 1;
+	// pthread_mutex_unlock(&args->eat_lock);
+	pthread_mutex_lock(&args->access_lock);
 	args->beginning_time = get_time();
-	args->all_started = 1;
+	pthread_mutex_unlock(&args->access_lock);
 	if (args->optional == 0)
 	{
 		while (!death_all(philos, args))

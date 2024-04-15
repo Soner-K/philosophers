@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/14 17:54:37 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:32:32 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ static void	init_mutex(t_args *args, pthread_mutex_t *forks)
 	pthread_mutex_init(&args->write_lock, NULL);
 	pthread_mutex_init(&args->dead_lock, NULL);
 	pthread_mutex_init(&args->eat_lock, NULL);
+	pthread_mutex_init(&args->access_lock, NULL);
 }
+
 static void	init_remaining(t_philo *philo, t_args *args, short int i)
 {
 	philo->is_eating = 0;

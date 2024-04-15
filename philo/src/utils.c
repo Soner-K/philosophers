@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/14 19:01:50 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:32:18 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,48 +20,40 @@ void	write_error(char *str)
 
 void	ft_usleep(long mls, t_args *args)
 {
-	long	beginning;
+	// long	beginning;
 
-	if (args->dead == 1)
+	if (!not_dead(args))
 		return ;
-	beginning = get_time();
-	while ((get_time() - beginning) < mls)
-		usleep(500);
+	// // pthread_mutex_lock(&args->dead_lock);
+	// // if (args->dead == 1)
+	// // 	return ;
+	// // pthread_mutex_unlock(&args->dead_lock);
+	// beginning = get_time();
+	// while ((get_time() - beginning) < mls)
+	// 	usleep(500);
+	usleep(mls * 1000);
 }
-
-void	ft_usleep2(long mls)
-{
-	long	beginning;
-
-	beginning = get_time();
-	while ((get_time() - beginning) < mls)
-		usleep(500);
-}
-
-// void	ft_usleep(long mls)
-// {
-// 	long	to_sleep;
-
-// 	to_sleep = mls * 1000;
-// 	if (to_sleep > UINT_MAX)
-// 		return ;
-// 	usleep(to_sleep);
-// }
 
 void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 {
 	long		time;
 	static char	i;
-	// (void)message;
-	// (void)philo;
-	if ((args->dead == 1 && force == 0) || (args->all_ate == 1 && i == 1))
+
+	if (!not_dead(args) && force == 0)
+		return ;
+	if (args->all_ate == 1 && i == 1)
 		return ;
 	if (args->all_ate == 1)
 		i = 1;
 	time = get_time();
-	time -= args->beginning_time;
+	pthread_mutex_lock(&args->access_lock);
+	if (args->beginning_time == 0)
+		time = 0;
+	else
+		time -= args->beginning_time;
+	pthread_mutex_unlock(&args->access_lock);
 	pthread_mutex_lock(&args->write_lock);
- 	printf("%s[%ld]%s %d %s\n", YELLOW, time, NO_COLOR, philo->id, message);
+	printf("%s%ld%s %d %s\n", YELLOW, time, NO_COLOR, philo->id, message);
 	pthread_mutex_unlock(&args->write_lock);
 }
 
@@ -74,12 +66,3 @@ long	get_time(void)
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (time);
 }
-
-// size_t	get_time(void)
-// {
-// 	struct timeval	time;
-
-// 	if (gettimeofday(&time, NULL) == -1)
-// 		write(2, "gettimeofday() error\n", 22);
-// 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-// }

@@ -1,6 +1,6 @@
 NAME				=	philo
 
-FILES				=	test.c \
+FILES				=	main.c \
 						utils.c \
 						parsing.c \
 						init.c \

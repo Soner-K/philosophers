@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:53:45 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/08 14:07:52 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:24:27 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,5 @@
 # include <limits.h>
 # include "macros.h"
 # include "structs.h"
-
-typedef struct s_training
-{
-	int				i;
-	int				tab[100];
-	int				id;
-	pthread_mutex_t	mutex;
-}					t_training;
 
 #endif

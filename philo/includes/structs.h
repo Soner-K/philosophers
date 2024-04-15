@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/14 17:54:19 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:35:26 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_args
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	eat_lock;
+	pthread_mutex_t	access_lock;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }					t_args;

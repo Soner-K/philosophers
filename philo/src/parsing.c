@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:23:29 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/14 17:54:52 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:03:52 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static char	store_args(int ac, char **argv, t_args *args)
 	args->dead = 0;
 	args->all_started = 0;
 	args->all_ate = 0;
+	args->beginning_time = 0;
 	return (TRUE);
 }
 
