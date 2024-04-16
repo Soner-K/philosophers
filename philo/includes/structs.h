@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 13:47:45 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:45:01 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct s_philo
  * @param optional A boolean taking the value 1 if number_win is defined,
  * and 0 otherwise.
  * @param dead A boolean taking the value 1 if a philosopher died.
- * @param all_ate A boolean taking the value 1 if all the philosophers
- * ate the required numbr of meals (see number_win).
  * @param n The number of philosophers.
  * @param time_die The maximum time a philosopher can go without eating
  * (in milliseconds).
@@ -71,7 +69,6 @@ typedef struct s_args
 {
 	char			optional;
 	char			dead;
-	char			all_ate;
 	int				n;
 	int				time_die;
 	int				time_eat;

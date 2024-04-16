@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 13:56:44 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:43:57 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,9 @@ void	ft_usleep(long mls, t_args *args)
 void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 {
 	long		time;
-	static char	i;
 
 	if (!not_dead(args) && force == 0)
 		return ;
-	if (args->all_ate == 1 && i == 1)
-		return ;
-	if (args->all_ate == 1)
-		i = 1;
 	time = get_time();
 	pthread_mutex_lock(&args->access_lock);
 	if (args->beginning_time == 0)

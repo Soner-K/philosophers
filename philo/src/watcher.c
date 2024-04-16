@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:50 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 13:54:35 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:38:26 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,12 @@ static char	all_meals(t_philo *philos, t_args *args)
 			finished++;
 		pthread_mutex_unlock(&args->eat_lock);
 	}
+	pthread_mutex_lock(&args->dead_lock);
 	if (finished >= args->n)
-		return (args->all_ate = 1, TRUE);
+	{
+		return (args->dead = 1, pthread_mutex_unlock(&args->dead_lock), TRUE);
+	}
+	pthread_mutex_unlock(&args->dead_lock);
 	return (FALSE);
 }
 

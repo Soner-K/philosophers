@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:03:32 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 13:59:18 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:00:08 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	ft_eat_even(t_philo *philo, long time)
 	if (philo->args->n == 1)
 	{
 		ft_usleep(philo->args->time_die, philo->args);
+		pthread_mutex_unlock(philo->fork_r);
 		return ;
 	}
 	pthread_mutex_lock(philo->fork_l);
@@ -71,11 +72,6 @@ static void	ft_eat_odd(t_philo *philo, long time)
 {
 	pthread_mutex_lock(philo->fork_l);
 	philo_printf("has taken a fork", philo, philo->args, 0);
-	if (philo->args->n == 1)
-	{
-		ft_usleep(philo->args->time_die, philo->args);
-		return ;
-	}
 	pthread_mutex_lock(philo->fork_r);
 	philo_printf("has taken a fork", philo, philo->args, 0);
 	philo->is_eating = 1;
@@ -123,13 +119,6 @@ void	*life(void *param)
 		ft_usleep(1, args);
 	while (not_dead(args))
 	{
-		// pthread_mutex_lock(&args->access_lock);
-		if (args->all_ate == 1)
-		{
-			// pthread_mutex_unlock(&args->access_lock);
-			break ;
-		}
-		// pthread_mutex_unlock(&args->access_lock);
 		if (philo->id % 2 == 0 || args->n == 1)
 			ft_eat_even(philo, args->time_eat);
 		else if (philo->id % 2 == 1)
