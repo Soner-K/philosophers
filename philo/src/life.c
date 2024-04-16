@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:03:32 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 20:15:36 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:59:18 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
  * @brief Sleeps for time miliseconds and then thinks.
- * @param philo
- * @param time
- * @returns
+ * @param philo A pointer to the id philo's structure.
+ * @param time The time for which to sleep.
+ * @returns void.
  */
 static void	sleep_and_think(t_philo *philo, long time)
 {
@@ -31,9 +31,11 @@ static void	sleep_and_think(t_philo *philo, long time)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief The eating function for the even id'd philosophers.
+ * This is done to avoid dead lock.
+ * @param philo A pointer to the id philo's structure.
+ * @param time The time for which to eat.
+ * @returns void.
  */
 static void	ft_eat_even(t_philo *philo, long time)
 {
@@ -59,9 +61,11 @@ static void	ft_eat_even(t_philo *philo, long time)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief The eating function for the odd id'd philosophers.
+ * This is done to avoid dead lock.
+ * @param philo A pointer to the id philo's structure.
+ * @param time The time for which to eat.
+ * @returns void.
  */
 static void	ft_eat_odd(t_philo *philo, long time)
 {
@@ -87,9 +91,9 @@ static void	ft_eat_odd(t_philo *philo, long time)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Checks if all philosopher are alive.
+ * @param args A pointer to the args' structure.
+ * @returns FALSE (0) if a philosopher died, and TRUE (1) otherwise.
  */
 char	not_dead(t_args *args)
 {
@@ -104,9 +108,9 @@ char	not_dead(t_args *args)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Does the routine (eat, sleep, think).
+ * @param param A void pointer to a given philosopher's structure.
+ * @returns NULL.
  */
 void	*life(void *param)
 {
@@ -119,8 +123,13 @@ void	*life(void *param)
 		ft_usleep(1, args);
 	while (not_dead(args))
 	{
+		// pthread_mutex_lock(&args->access_lock);
 		if (args->all_ate == 1)
+		{
+			// pthread_mutex_unlock(&args->access_lock);
 			break ;
+		}
+		// pthread_mutex_unlock(&args->access_lock);
 		if (philo->id % 2 == 0 || args->n == 1)
 			ft_eat_even(philo, args->time_eat);
 		else if (philo->id % 2 == 1)

@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 20:10:57 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:47:45 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_args	t_args;
  * @param thread Philosopher's thread. 
  * @param fork_l A mutex representing the left fork of a philosopher.
  * @param fork_r A mutex representing the right fork of a philosopher.
- * @param args A pointer to the args' structure,
+ * @param args A pointer to the args' structure.
  */
 typedef struct s_philo
 {

@@ -26,14 +26,14 @@ all					:	$(NAME)
 $(NAME)				:	$(OBJ_DIR) $(OBJ)
 						@echo "\n"
 						@echo "$(GREEN)Compiling philo...$(COLOR_END)"
-						$(CC) $(CFLAGS) $(INCLUDES) $(DEBUGGER) $(OBJ) -o $(NAME)
+						$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -o $(NAME)
 						@echo "$(LGREEN)philo compiled !$(RED) Let them die. $(COLOR_END)\n"
 
 $(OBJ_DIR)			:
 						mkdir -p $@
 
 $(OBJ_DIR)/%.o		:	$(SRC_DIR)/%.c
-						$(CC) $(CFLAGS) $(INCLUDES) $(DEBUGGER) -c $< -o $@
+						$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 						@printf "$(YELLOW)%s created $(FACE_ESCUZME) $(COLOR_END)\n" $@
 
 clean				:

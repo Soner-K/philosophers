@@ -6,16 +6,15 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:50 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 20:15:24 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:54:35 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Checks for the death of one given philosopher.
+ * @returns TRUE (1) if a given philosopher died, and FALSE (0) otherwise.
  */
 static char	death_one(t_philo *philo, t_args *args)
 {
@@ -38,9 +37,8 @@ static char	death_one(t_philo *philo, t_args *args)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Looks for a dead philosopher among all the philosophers.
+ * @returns TRUE (1) if at least one philosopher died, and FALSE (0) otherwise.
  */
 static char	death_all(t_philo *philos, t_args *args)
 {
@@ -62,9 +60,10 @@ static char	death_all(t_philo *philos, t_args *args)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief If the optional parameter is given, checks if
+ * all the philosophers ate the required amount of meals.
+ * @returns TRUE (1) if all the philosophers ate the required amount of meals
+ * and 0 otherwise.
  */
 static char	all_meals(t_philo *philos, t_args *args)
 {
@@ -86,9 +85,11 @@ static char	all_meals(t_philo *philos, t_args *args)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief The watcher's thread checks if the condition to stop the simulation
+ * is encountered (a philosopher died, or they all ate the required number
+ * of meals.
+ * @param param A void pointer to the philosophers' structure.
+ * @returns NULL.
  */
 void	*watch_philos(void *param)
 {

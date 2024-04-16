@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 20:15:11 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:56:44 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	ft_usleep(long mls, t_args *args)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief A printf tailored for the philosopher's project. It locks the 
+ * write mutex and then writes the time, the id, and a message.
  */
 void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 {
@@ -54,9 +53,7 @@ void	philo_printf(char *message, t_philo *philo, t_args *args, char force)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Gets the time since the Epoch (1970-01-01 at 00:00:00)
  */
 long	get_time(void)
 {

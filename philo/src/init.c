@@ -6,13 +6,11 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/15 20:14:56 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:54:51 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-// check what attribute to use for pthread_mutex_init
 
 static void	init_mutex(t_args *args, pthread_mutex_t *forks)
 {
@@ -37,9 +35,13 @@ static void	init_remaining(t_philo *philo, t_args *args, short int i)
 }
 
 /**
- * @brief
- * @param
- * @returns
+ * @brief Initialize the philos' structure array.
+ * @param philos A pointer to an array on the stack, containing
+ * all the philosophers' structures.
+ * @param forks A pointer to a dynamically allocated array
+ * containing all the mutexes for the forks.
+ * @param args A pointer to the args' structure.
+ * @returns void.
  */
 void	init_philos(t_philo *philos, t_args *args, pthread_mutex_t *forks)
 {
