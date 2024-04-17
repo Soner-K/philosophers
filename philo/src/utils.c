@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:28:15 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 14:43:57 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:13:33 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	write_error(char *str)
 {
 	while (*str)
 		write(2, str++, 1);
+	write(2, "\n", 1);
 }
 
 void	ft_usleep(long mls, t_args *args)

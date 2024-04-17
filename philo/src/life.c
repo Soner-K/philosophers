@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:03:32 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 15:00:08 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:31:46 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,12 @@ static void	ft_eat_even(t_philo *philo, long time)
 	}
 	pthread_mutex_lock(philo->fork_l);
 	philo_printf("has taken a fork", philo, philo->args, 0);
-	philo->is_eating = 1;
 	philo_printf("is eating", philo, philo->args, 0);
 	pthread_mutex_lock(&philo->args->eat_lock);
 	philo->meals++;
 	philo->last_ate = get_time();
 	pthread_mutex_unlock(&philo->args->eat_lock);
 	ft_usleep(time, philo->args);
-	philo->is_eating = 0;
 	pthread_mutex_unlock(philo->fork_r);
 	pthread_mutex_unlock(philo->fork_l);
 }
@@ -74,14 +72,12 @@ static void	ft_eat_odd(t_philo *philo, long time)
 	philo_printf("has taken a fork", philo, philo->args, 0);
 	pthread_mutex_lock(philo->fork_r);
 	philo_printf("has taken a fork", philo, philo->args, 0);
-	philo->is_eating = 1;
 	philo_printf("is eating", philo, philo->args, 0);
 	pthread_mutex_lock(&philo->args->eat_lock);
 	philo->meals++;
 	philo->last_ate = get_time();
 	pthread_mutex_unlock(&philo->args->eat_lock);
 	ft_usleep(time, philo->args);
-	philo->is_eating = 0;
 	pthread_mutex_unlock(philo->fork_l);
 	pthread_mutex_unlock(philo->fork_r);
 }

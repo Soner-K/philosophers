@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:19:26 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 13:54:51 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:31:36 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	init_mutex(t_args *args, pthread_mutex_t *forks)
 
 static void	init_remaining(t_philo *philo, t_args *args, short int i)
 {
-	philo->is_eating = 0;
 	philo->last_ate = 0;
 	philo->meals = 0;
 	philo->id = i + 1;

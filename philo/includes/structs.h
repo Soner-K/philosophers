@@ -6,7 +6,7 @@
 /*   By: sokaraku <sokaraku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:53:04 by sokaraku          #+#    #+#             */
-/*   Updated: 2024/04/16 14:45:01 by sokaraku         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:31:52 by sokaraku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef struct s_args	t_args;
 
 /**
  * @brief Structure containing all the needed infos for a philosopher.
- * @param is_eating A boolean taking the value 1 if a philosopher is eating
- * and 0 otherwise.
  * @param last_ate The time when a philosopher last ate.
  * @param meals The number of meals a philosopher ate.
  * @param id Philosopher's id.
@@ -31,7 +29,6 @@ typedef struct s_args	t_args;
  */
 typedef struct s_philo
 {
-	char			is_eating;
 	long			last_ate;
 	int				meals;
 	short int		id;
